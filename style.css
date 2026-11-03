@@ -8,7 +8,39 @@
   --font-serif: 'Lora', serif;
   --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
 
-  /* Default Matrix Terminal Theme */
+  /* Default Electric Cyber Blue Theme */
+  --bg-color: #060d1a;
+  --surface-color: rgba(11, 23, 44, 0.78);
+  --surface-border: rgba(0, 180, 255, 0.28);
+  --primary-color: #00b4ff;
+  --primary-glow: rgba(0, 180, 255, 0.38);
+  --text-main: #e2f2ff;
+  --text-dim: #648ba8;
+  --text-highlight: #ffffff;
+  --accent-color: #00e5ff;
+  --badge-bg: rgba(0, 180, 255, 0.14);
+  --scanline-opacity: 0.12;
+  --active-font: var(--font-mono);
+}
+
+/* Theme: Electric Cyber Blue */
+body[data-theme="cyberblue"] {
+  --bg-color: #060d1a;
+  --surface-color: rgba(11, 23, 44, 0.78);
+  --surface-border: rgba(0, 180, 255, 0.28);
+  --primary-color: #00b4ff;
+  --primary-glow: rgba(0, 180, 255, 0.38);
+  --text-main: #e2f2ff;
+  --text-dim: #648ba8;
+  --text-highlight: #ffffff;
+  --accent-color: #00e5ff;
+  --badge-bg: rgba(0, 180, 255, 0.14);
+  --scanline-opacity: 0.12;
+  --active-font: var(--font-mono);
+}
+
+/* Theme: Matrix Terminal (Green) */
+body[data-theme="terminal"] {
   --bg-color: #080d0a;
   --surface-color: rgba(13, 26, 17, 0.75);
   --surface-border: rgba(0, 255, 102, 0.22);

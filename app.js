@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // State
-  let currentTheme = 'terminal';
+  let currentTheme = 'cyberblue';
   let isStreamView = false;
 
   // 1. Hook up WebFetcher events
@@ -218,7 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
       const theme = item.getAttribute('data-theme');
+      document.body.setAttribute('data-theme', theme);
       const themeColors = {
+        cyberblue: '#00b4ff',
         terminal: '#00ff66',
         cyberpunk: '#ffb000',
         deepspace: '#00e5ff',

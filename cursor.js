@@ -39,7 +39,7 @@ class VirtualCursorSimulator {
     container.className = 'virtual-cursor';
     container.innerHTML = `
       <svg class="cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 3L11.5 21L14.5 13.5L22 10.5L4 3Z" fill="#00ff66" stroke="#000000" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M4 3L11.5 21L14.5 13.5L22 10.5L4 3Z" fill="#00b4ff" stroke="#000000" stroke-width="1.8" stroke-linejoin="round"/>
       </svg>
       <div class="cursor-ripple" id="cursorRipple"></div>
       <div class="cursor-halo"></div>
