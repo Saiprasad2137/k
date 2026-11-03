@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Web Typewriter — Infinite Random Feed</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="terminal">
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="scanlines" id="scanlines"></div>
+
+  <div class="app-container">
+    <!-- Top Status Bar -->
+    <header class="top-bar">
+      <div class="brand">
+        <span class="pulse-indicator" id="pulseIndicator"></span>
+        <span class="brand-title">WEB TELETYPE</span>
+        <span class="status-badge" id="networkBadge">SYNCHRONIZING...</span>
+      </div>
+
+      <div class="meta-status">
+        <span class="source-tag" id="currentSourceTag">SOURCE: CONNECTING</span>
+        <span class="queue-counter" id="queueCounter" title="Pre-fetched buffer items">BUFFER: 0</span>
+        <span class="char-counter" id="charCounter">0 CHARS</span>
+      </div>
+    </header>
+
+    <!-- Main Display Section -->
+    <main class="viewport">
+      <!-- Mode 1: Spotlight Card View -->
+      <section class="spotlight-stage" id="spotlightStage">
+        <div class="stage-card">
+          <div class="card-header">
+            <span class="category-pill" id="cardCategory">INCOMING TRANSMISSION</span>
+            <span class="timestamp" id="cardTimestamp">--:--:--</span>
+          </div>
+
+          <div class="typing-surface">
+            <h2 class="title-display" id="titleDisplay"></h2>
+            <div class="text-display-container">
+              <span class="text-display" id="textDisplay"></span><span class="cursor" id="cursor">█</span>
+            </div>
+            <div class="author-display" id="authorDisplay"></div>
+          </div>
+
+          <div class="card-footer">
+            <div class="read-progress-bar">
+              <div class="progress-fill" id="readProgress"></div>
+            </div>
+            <div class="source-link-container">
+              <a href="#" target="_blank" rel="noopener noreferrer" class="source-link" id="sourceLink">View web source →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mode 2: Endless Continuous Stream View -->
+      <section class="stream-stage hidden" id="streamStage">
+        <div class="stream-log" id="streamLog">
+          <!-- Continuous paragraphs are appended here -->
+        </div>
+        <div class="stream-active-line">
+          <span class="stream-prompt">&gt;</span>
+          <span class="stream-text" id="streamText"></span><span class="cursor" id="streamCursor">█</span>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bottom Floating Control Deck -->
+    <footer class="control-deck">
+      <div class="controls-group left">
+        <button class="btn icon-btn" id="playPauseBtn" title="Play / Pause (Space)">
+          <span class="btn-icon" id="playPauseIcon">⏸</span>
+          <span class="btn-label" id="playPauseLabel">PAUSE</span>
+        </button>
+
+        <button class="btn icon-btn" id="skipBtn" title="Skip to next item (N)">
+          <span class="btn-icon">⏭</span>
+          <span class="btn-label">SKIP</span>
+        </button>
+
+        <div class="speed-control">
+          <span class="control-label">SPEED:</span>
+          <div class="speed-buttons" id="speedButtons">
+            <button class="speed-btn" data-speed="slow">SLOW</button>
+            <button class="speed-btn active" data-speed="medium">MED</button>
+            <button class="speed-btn" data-speed="fast">FAST</button>
+            <button class="speed-btn" data-speed="hyper">HYPER</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-group right">
+        <!-- Mode Switcher -->
+        <div class="mode-control">
+          <span class="control-label">VIEW:</span>
+          <button class="btn toggle-btn active" id="viewModeBtn" title="Switch between Spotlight & Stream view">
+            <span id="viewModeLabel">SPOTLIGHT</span>
+          </button>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button class="btn icon-btn" id="soundBtn" title="Toggle Typewriter Sound Effects (M)">
+          <span class="btn-icon" id="soundIcon">🔇</span>
+          <span class="btn-label" id="soundLabel">SOUND OFF</span>
+        </button>
+
+        <!-- Theme Picker -->
+        <div class="dropdown-wrapper">
+          <button class="btn dropdown-btn" id="themeBtn" title="Change Theme">
+            <span>THEME</span>
+            <span class="arrow-down">▾</span>
+          </button>
+          <div class="dropdown-menu" id="themeMenu">
+            <button class="menu-item active" data-theme="terminal">Matrix Terminal</button>
+            <button class="menu-item" data-theme="cyberpunk">Cyberpunk Amber</button>
+            <button class="menu-item" data-theme="deepspace">Deep Space Neon</button>
+            <button class="menu-item" data-theme="vintage">Vintage Typewriter</button>
+            <button class="menu-item" data-theme="paper">Minimalist Editorial</button>
+          </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="dropdown-wrapper">
+          <button class="btn dropdown-btn" id="categoryBtn" title="Select Sources">
+            <span id="categoryLabel">ALL WEB SOURCES</span>
+            <span class="arrow-down">▾</span>
+          </button>
+          <div class="dropdown-menu" id="categoryMenu">
+            <button class="menu-item active" data-source="all">All Random (Mixed)</button>
+            <button class="menu-item" data-source="wikipedia">Wikipedia Discoveries</button>
+            <button class="menu-item" data-source="facts">Fascinating Facts</button>
+            <button class="menu-item" data-source="quotes">Quotes & Thoughts</button>
+            <button class="menu-item" data-source="advice">Advice & Wisdom</button>
+          </div>
+        </div>
+
+        <!-- Fullscreen -->
+        <button class="btn icon-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
+          <span class="btn-icon">⛶</span>
+        </button>
+
+        <!-- Help / Keys -->
+        <button class="btn icon-btn" id="helpBtn" title="Keyboard Shortcuts (?)">
+          <span class="btn-icon">?</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Help Modal -->
+  <div class="modal-overlay hidden" id="helpModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>HOTKEYS & GUIDE</h3>
+        <button class="close-btn" id="closeHelpBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">This webpage continuously reaches out to live web endpoints in the background, parses random discoveries, and types them out character by character in real-time.</p>
+        <div class="shortcuts-grid">
+          <div class="shortcut-row"><kbd>Space</kbd> <span>Pause / Resume typing</span></div>
+          <div class="shortcut-row"><kbd>N</kbd> <span>Skip immediately to next item</span></div>
+          <div class="shortcut-row"><kbd>M</kbd> <span>Toggle mechanical sound effects</span></div>
+          <div class="shortcut-row"><kbd>1</kbd> - <kbd>4</kbd> <span>Change typing speed</span></div>
+          <div class="shortcut-row"><kbd>V</kbd> <span>Switch View (Spotlight vs Endless Log)</span></div>
+          <div class="shortcut-row"><kbd>F</kbd> <span>Toggle Fullscreen ambient mode</span></div>
+          <div class="shortcut-row"><kbd>?</kbd> <span>Open this cheat sheet</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sound.js"></script>
+  <script src="fetcher.js"></script>
+  <script src="typewriter.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
