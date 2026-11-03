@@ -25,6 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const streamLog = document.getElementById('streamLog');
   const streamText = document.getElementById('streamText');
 
+  // REC & Activity Timer
+  const recTimer = document.getElementById('recTimer');
+  let recordingSeconds = 0;
+  setInterval(() => {
+    recordingSeconds++;
+    const hrs = String(Math.floor(recordingSeconds / 3600)).padStart(2, '0');
+    const mins = String(Math.floor((recordingSeconds % 3600) / 60)).padStart(2, '0');
+    const secs = String(recordingSeconds % 60).padStart(2, '0');
+    if (recTimer) recTimer.textContent = `${hrs}:${mins}:${secs}`;
+  }, 1000);
+
   // Control Deck
   const playPauseBtn = document.getElementById('playPauseBtn');
   const playPauseIcon = document.getElementById('playPauseIcon');
@@ -33,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const speedButtons = document.querySelectorAll('.speed-btn');
   const viewModeBtn = document.getElementById('viewModeBtn');
   const viewModeLabel = document.getElementById('viewModeLabel');
+  const cursorToggleBtn = document.getElementById('cursorToggleBtn');
+  const cursorToggleLabel = document.getElementById('cursorToggleLabel');
   const soundBtn = document.getElementById('soundBtn');
   const soundIcon = document.getElementById('soundIcon');
   const soundLabel = document.getElementById('soundLabel');
@@ -148,7 +161,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   viewModeBtn.addEventListener('click', toggleViewMode);
 
-  // 8. Sound Toggle
+  // 8. Virtual Cursor Toggle
+  function toggleVirtualCursor() {
+    if (!window.virtualCursor) return;
+    const isEnabled = window.virtualCursor.toggle();
+    if (cursorToggleLabel) {
+      cursorToggleLabel.textContent = isEnabled ? 'CURSOR ON' : 'CURSOR OFF';
+    }
+    if (isEnabled) {
+      cursorToggleBtn.classList.add('active');
+    } else {
+      cursorToggleBtn.classList.remove('active');
+    }
+  }
+  if (cursorToggleBtn) {
+    cursorToggleBtn.addEventListener('click', toggleVirtualCursor);
+  }
+
+  // 9. Sound Toggle
   function toggleSound() {
     const enabled = window.typewriterAudio.toggle();
     if (enabled) {
@@ -188,7 +218,16 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', (e) => {
       e.stopPropagation();
       const theme = item.getAttribute('data-theme');
-      document.body.setAttribute('data-theme', theme);
+      const themeColors = {
+        terminal: '#00ff66',
+        cyberpunk: '#ffb000',
+        deepspace: '#00e5ff',
+        vintage: '#e6be8a',
+        paper: '#ffffff'
+      };
+      if (window.virtualCursor && themeColors[theme]) {
+        window.virtualCursor.updateThemeColor(themeColors[theme]);
+      }
       themeMenu.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
       item.classList.add('active');
       closeAllMenus();
@@ -235,6 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
       togglePlayPause();
     } else if (e.code === 'KeyN') {
       window.typewriterEngine.skip();
+    } else if (e.code === 'KeyC') {
+      toggleVirtualCursor();
     } else if (e.code === 'KeyM') {
       toggleSound();
     } else if (e.code === 'KeyV') {
@@ -262,6 +303,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.addEventListener('click', unlockAudio);
   window.addEventListener('keydown', unlockAudio);
+
+  // Initialize Virtual Cursor
+  if (window.virtualCursor) {
+    window.virtualCursor.init();
+  }
 
   // START CYCLE
   runCycle();

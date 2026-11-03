@@ -710,6 +710,100 @@ kbd {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.4);
 }
 
+/* REC / Recording Activity Indicator */
+.rec-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 30, 30, 0.12);
+  border: 1px solid rgba(255, 50, 50, 0.35);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.rec-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ff3333;
+  box-shadow: 0 0 8px #ff3333;
+  animation: recBlink 1.4s infinite ease-in-out;
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.85); }
+}
+
+.rec-text {
+  color: #ff4d4d;
+  font-weight: 700;
+}
+
+.rec-timer {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   VIRTUAL AUTONOMOUS CURSOR SIMULATOR
+   ========================================================================== */
+.virtual-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+  transition: opacity 0.3s ease;
+}
+
+.cursor-pointer {
+  display: block;
+  width: 22px;
+  height: 22px;
+  transform: rotate(-5deg);
+}
+
+.cursor-halo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary-glow);
+  filter: blur(8px);
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.cursor-ripple {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+.cursor-ripple.active {
+  animation: rippleExpand 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes rippleExpand {
+  0% { opacity: 0.9; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.5); }
+}
+
 /* Utilities */
 .hidden {
   display: none !important;

@@ -52,7 +52,13 @@ You can open the webpage directly:
    - Frequency-jittered key clicks, deeper spacebar thuds, and classic end-of-line carriage bell ding.
    - Toggle on or off with the sound button or hotkey `M`.
 
-5. **5 Aesthetic Themes**:
+5. **Autonomous Virtual Cursor & REC Indicator**:
+   - Realistic animated virtual mouse pointer with organic spring-damped curves, text-tracking, reading sweeps, and interactive click ripples.
+   - Ideal for screen capture, live demos, and ambient recording.
+   - High-visibility `● REC` indicator with live session timer in the top bar.
+   - Toggle cursor on/off anytime with button or hotkey `C`.
+
+6. **5 Aesthetic Themes**:
    - **Matrix Terminal**: Glowing emerald on deep carbon with subtle scanlines.
    - **Cyberpunk Amber**: Warm golden phosphor glow.
    - **Deep Space Neon**: Electric cyan and purple on obsidian.
@@ -68,6 +74,7 @@ You can open the webpage directly:
 | <kbd>Space</kbd> | Pause / Resume typing |
 | <kbd>N</kbd> | Skip immediately to next item |
 | <kbd>M</kbd> | Toggle mechanical sound effects |
+| <kbd>C</kbd> | Toggle autonomous virtual cursor |
 | <kbd>1</kbd> - <kbd>4</kbd> | Change speed (Slow, Med, Fast, Hyper) |
 | <kbd>V</kbd> | Switch View (Spotlight vs Stream Log) |
 | <kbd>F</kbd> | Toggle Fullscreen ambient display |

@@ -128,6 +128,11 @@ class TypewriterEngine {
       window.typewriterAudio.playKeyClick(char);
     }
 
+    // Virtual cursor tracks typing location actively
+    if (window.virtualCursor && window.virtualCursor.enabled) {
+      window.virtualCursor.trackTypingCursor();
+    }
+
     if (typeof this.onCharTyped === 'function') {
       this.onCharTyped(this.currentIndex, this.targetText.length);
     }

@@ -22,6 +22,11 @@
         <span class="pulse-indicator" id="pulseIndicator"></span>
         <span class="brand-title">WEB TELETYPE</span>
         <span class="status-badge" id="networkBadge">SYNCHRONIZING...</span>
+        <div class="rec-badge" id="recBadge" title="Continuous Background Activity Recording">
+          <span class="rec-dot"></span>
+          <span class="rec-text">REC</span>
+          <span class="rec-timer" id="recTimer">00:00:00</span>
+        </div>
       </div>
 
       <div class="meta-status">
@@ -105,6 +110,12 @@
           </button>
         </div>
 
+        <!-- Virtual Cursor Movement -->
+        <button class="btn icon-btn active" id="cursorToggleBtn" title="Toggle Auto Cursor Movement (C)">
+          <span class="btn-icon">🖱️</span>
+          <span class="btn-label" id="cursorToggleLabel">CURSOR ON</span>
+        </button>
+
         <!-- Sound Toggle -->
         <button class="btn icon-btn" id="soundBtn" title="Toggle Typewriter Sound Effects (M)">
           <span class="btn-icon" id="soundIcon">🔇</span>
@@ -168,6 +179,7 @@
           <div class="shortcut-row"><kbd>N</kbd> <span>Skip immediately to next item</span></div>
           <div class="shortcut-row"><kbd>M</kbd> <span>Toggle mechanical sound effects</span></div>
           <div class="shortcut-row"><kbd>1</kbd> - <kbd>4</kbd> <span>Change typing speed</span></div>
+          <div class="shortcut-row"><kbd>C</kbd> <span>Toggle Auto Cursor Movement</span></div>
           <div class="shortcut-row"><kbd>V</kbd> <span>Switch View (Spotlight vs Endless Log)</span></div>
           <div class="shortcut-row"><kbd>F</kbd> <span>Toggle Fullscreen ambient mode</span></div>
           <div class="shortcut-row"><kbd>?</kbd> <span>Open this cheat sheet</span></div>
@@ -177,6 +189,7 @@
   </div>
 
   <script src="sound.js"></script>
+  <script src="cursor.js"></script>
   <script src="fetcher.js"></script>
   <script src="typewriter.js"></script>
   <script src="app.js"></script>
